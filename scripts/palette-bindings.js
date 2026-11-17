@@ -266,4 +266,215 @@ html body .who-is-here .other-row * {
 }
 html body .who-is-here .one-other:hover {
     background-color: rgba(68, 20, 130, 0.55) !important;
-    border-color: rgba(196, 181, 25
+    border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+html body .who-is-here .bottom-part,
+html body .who-is-here .search-wrapper,
+html body .who-is-here .filter-wrapper {
+    background-color: #0b0318 !important;
+    border-top: 1px solid rgba(139, 92, 246, 0.22) !important;
+    box-shadow: none !important;
+}
+
+html body .who-is-here input,
+html body .who-is-here .default-input {
+    background-color: rgba(6, 2, 14, 0.85) !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+    border-radius: 3px !important;
+    color: #e9d5ff !important;
+}
+html body .who-is-here input:focus {
+    border-color: rgba(196, 181, 253, 0.6) !important;
+}
+
+html body .min-timer .one-timer,
+html body .min-timer .timer-row,
+html body .min-timer .add-timer,
+html body .min-timer .scroll-pane > div {
+    background-color: rgba(20, 6, 42, 0.55) !important;
+    background-image: linear-gradient(180deg, rgba(48, 14, 96, 0.38) 0%, rgba(12, 4, 26, 0.68) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.28) !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    color: #e9d5ff !important;
+}
+
+html body .min-timer .add-timer *,
+html body .min-timer .one-timer *,
+html body [class*="timer"] [class*="add"] * {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+html body .min-timer .add-timer:hover,
+html body .min-timer .one-timer:hover {
+    background-color: rgba(68, 20, 130, 0.55) !important;
+    border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+html body .min-timer .one-timer .name,
+html body .min-timer .one-timer span:first-child {
+    color: #d8b4fe !important;
+}
+
+/* 6. OKNO ŁUPÓW (LOOT WINDOW) - TAK (ZIELONY) / NIE (CZERWONY) */
+html body .loot-window .one-item-on-loot {
+    background: linear-gradient(180deg, rgba(26, 8, 52, 0.75) 0%, rgba(9, 3, 20, 0.92) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.45) !important;
+    border-radius: 5px !important;
+}
+
+html body .loot-window .one-item-on-loot .button,
+html body .loot-window .buttons-wrapper > div {
+    background: rgba(14, 5, 28, 0.75) !important;
+    border: 1px solid rgba(124, 58, 237, 0.3) !important;
+    opacity: 0.4 !important;
+    filter: grayscale(50%) brightness(0.7) !important;
+    transform: scale(0.92) !important;
+    transition: all 0.14s ease !important;
+}
+
+html body .loot-window .one-item-on-loot .button:first-of-type.active,
+html body .loot-window .buttons-wrapper > div:first-child.active,
+html body .loot-window .button.yes.active,
+html body .loot-window .button.want.active {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.05) !important;
+    background: radial-gradient(circle at 50% 35%, #10b981 0%, #059669 55%, #064e3b 100%) !important;
+    border: 1px solid #6ee7b7 !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.75), inset 0 1px 0 #ffffff !important;
+}
+
+html body .loot-window .one-item-on-loot .button:last-of-type.active,
+html body .loot-window .buttons-wrapper > div:last-child.active,
+html body .loot-window .button.no.active,
+html body .loot-window .button.not-want.active {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.05) !important;
+    background: radial-gradient(circle at 50% 35%, #f43f5e 0%, #be123c 55%, #4c0519 100%) !important;
+    border: 1px solid #fda4af !important;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.75), inset 0 1px 0 #ffffff !important;
+}
+
+/* 7. TOOLTIPY PRZEDMIOTÓW ORAZ PANEL WALKI */
+html body .tip-wrapper,
+html body .tip-wrapper .content {
+    background-color: #090214 !important;
+    background-image:
+        radial-gradient(circle at 50% 0%, rgba(109, 40, 217, 0.22) 0%, transparent 70%),
+        linear-gradient(180deg, #15052b 0%, #090214 60%, #05010a 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.65) !important;
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 0 1px #2e1065, 0 8px 24px rgba(0, 0, 0, 0.95) !important;
+    color: #f3e8ff !important;
+}
+
+html body .tip-wrapper .border-image,
+html body .tip-wrapper::before,
+html body .tip-wrapper::after {
+    display: none !important;
+}
+
+html body .battle-controller,
+html body .battle-window {
+    background-color: rgba(8, 2, 18, 0.92) !important;
+    border: 1px solid rgba(147, 51, 234, 0.65) !important;
+    box-shadow: inset 0 0 0 1px #2e1065, 0 0 25px rgba(0, 0, 0, 0.9) !important;
+}
+
+html body .popup-menu,
+html body .battle-skill-menu {
+    background-color: rgba(11, 3, 24, 0.96) !important;
+    background-image: linear-gradient(180deg, rgba(48, 12, 86, 0.9) 0%, rgba(11, 3, 24, 0.98) 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.65) !important;
+    border-radius: 6px !important;
+}
+`;
+
+    const isTealColor = (col) => {
+        if (!col) return false;
+        const m = col.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        if (!m) return false;
+        const r = +m[1], g = +m[2], b = +m[3];
+        return (g > r + 6 && b > r + 6 && r < 95);
+    };
+
+    const purifyTealElements = (root = document.body) => {
+        if (localStorage.getItem(STORAGE_KEY) === '0' || !root) return;
+        const nodes = root.querySelectorAll(
+            '.border-window *, .min-timer *, .who-is-here *, .party *, .popup-menu *, .battle-controller *, .settings-window *, [class*="loot-filter"] *'
+        );
+        for (let i = 0; i < nodes.length; i++) {
+            const el = nodes[i];
+            if (el.dataset.voidPurified) continue;
+            if (el.closest('.widget-button') || el.closest('.one-item-on-loot')) continue;
+
+            const cs = getComputedStyle(el);
+            const bgImg = cs.backgroundImage || '';
+            const bgCol = cs.backgroundColor || '';
+            const borderCol = cs.borderTopColor || '';
+
+            if (
+                isTealColor(bgCol) ||
+                /rgb\((1[0-9]|2[0-9]|3[0-9]|4[0-9]),\s*(3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]),\s*(4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9])\)/.test(bgImg)
+            ) {
+                el.style.setProperty('background-color', 'rgba(18, 5, 38, 0.78)', 'important');
+                el.style.setProperty(
+                    'background-image',
+                    'linear-gradient(180deg, rgba(36, 10, 72, 0.75) 0%, rgba(12, 3, 26, 0.88) 100%)',
+                    'important'
+                );
+                if (cs.borderTopWidth !== '0px') {
+                    el.style.setProperty('border-color', 'rgba(139, 92, 246, 0.32)', 'important');
+                }
+                el.dataset.voidPurified = '1';
+            } else if (isTealColor(borderCol) && cs.borderTopWidth !== '0px') {
+                el.style.setProperty('border-color', 'rgba(139, 92, 246, 0.32)', 'important');
+                el.dataset.voidPurified = '1';
+            }
+
+            if (isTealColor(cs.color)) {
+                el.style.setProperty('color', '#d8b4fe', 'important');
+                el.dataset.voidPurified = '1';
+            }
+        }
+    };
+
+    const ensurePatchActive = () => {
+        if (localStorage.getItem(STORAGE_KEY) !== '0') {
+            if (document.body && document.body.lastElementChild !== patchEl) {
+                document.body.appendChild(patchEl);
+            }
+            purifyTealElements();
+        } else {
+            patchEl.remove();
+        }
+    };
+
+    ensurePatchActive();
+
+    const observer = new MutationObserver((mutations) => {
+        if (localStorage.getItem(STORAGE_KEY) === '0') return;
+        if (document.body && document.body.lastElementChild !== patchEl) {
+            document.body.appendChild(patchEl);
+        }
+        for (const m of mutations) {
+            if (m.addedNodes.length) {
+                purifyTealElements();
+                break;
+            }
+        }
+    });
+
+    observer.observe(document.body || document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    window.addEventListener('void-atelier-toggle', ensurePatchActive);
+})();
