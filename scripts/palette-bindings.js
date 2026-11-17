@@ -478,3 +478,188 @@ html body .battle-skill-menu {
 
     window.addEventListener('void-atelier-toggle', ensurePatchActive);
 })();
+
+// =========================================================================
+// INTEGRACJA: LABKOWY ZESTAW DODATKÓW (HUB / GRIINLAB) -> STYL VOID ATELIER
+// =========================================================================
+(function () {
+    'use strict';
+
+    const LAB_PATCH_ID = 'void-atelier-lab-hub-patch';
+    const STORAGE_KEY = 'void_atelier_enabled';
+
+    const labStyle = document.getElementById(LAB_PATCH_ID) || document.createElement('style');
+    labStyle.id = LAB_PATCH_ID;
+    labStyle.textContent = `
+/* Główne okna, modale i panele Labkowego HUB-a */
+html body [id*="lab" i]:not(script):not(style),
+html body [class*="lab-" i],
+html body [class*="lab_" i],
+html body [class*="griin" i],
+html body [id*="griin" i],
+html body [class*="hub-" i] {
+    border-color: rgba(139, 92, 246, 0.38) !important;
+}
+
+/* Kontenery okienek i paneli HUB-a */
+html body div[class*="lab-" i][class*="window" i],
+html body div[class*="lab-" i][class*="panel" i],
+html body div[class*="lab-" i][class*="modal" i],
+html body div[class*="lab-" i][class*="box" i],
+html body div[class*="lab-" i][class*="container" i],
+html body div[id*="lab" i][class*="window" i],
+html body div[id*="lab" i][class*="panel" i],
+html body div[class*="hub-window" i],
+html body div[class*="hub-panel" i] {
+    background-color: rgba(11, 3, 24, 0.94) !important;
+    background-image: linear-gradient(180deg, rgba(42, 12, 84, 0.5) 0%, rgba(9, 2, 20, 0.96) 100%) !important;
+    border: 1px solid rgba(147, 51, 234, 0.55) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(88, 28, 135, 0.35) !important;
+    color: #f3e8ff !important;
+}
+
+/* Nagłówki okienek HUB-a */
+html body [class*="lab-" i][class*="header" i],
+html body [class*="lab-" i][class*="title" i],
+html body [class*="lab-" i][class*="top" i],
+html body [class*="hub-" i][class*="header" i] {
+    background: linear-gradient(180deg, #4c1d95 0%, #24074d 60%, #120426 100%) !important;
+    border-bottom: 1px solid rgba(168, 85, 247, 0.5) !important;
+    color: #f3e8ff !important;
+    text-shadow: 0 1px 2px #000 !important;
+}
+
+/* Wiersze dodatków, karty i sekcje wewnątrz HUB-a */
+html body [class*="lab-" i][class*="item" i],
+html body [class*="lab-" i][class*="row" i],
+html body [class*="lab-" i][class*="card" i],
+html body [class*="lab-" i][class*="addon" i],
+html body [class*="hub-" i][class*="item" i],
+html body [class*="hub-" i][class*="card" i] {
+    background-color: rgba(20, 6, 42, 0.65) !important;
+    background-image: linear-gradient(90deg, rgba(59, 18, 117, 0.25) 0%, rgba(14, 4, 30, 0.65) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.28) !important;
+    border-radius: 4px !important;
+    color: #e9d5ff !important;
+}
+
+html body [class*="lab-" i][class*="item" i]:hover,
+html body [class*="lab-" i][class*="row" i]:hover,
+html body [class*="lab-" i][class*="card" i]:hover,
+html body [class*="hub-" i][class*="item" i]:hover {
+    background-color: rgba(68, 20, 130, 0.55) !important;
+    border-color: rgba(196, 181, 253, 0.55) !important;
+}
+
+/* Przyciski i zakładki wewnątrz Labkowego HUB-a */
+html body [class*="lab-" i] button,
+html body [class*="lab-" i][class*="btn" i],
+html body [class*="lab-" i][class*="button" i],
+html body [class*="lab-" i][class*="tab" i],
+html body [class*="hub-" i] button,
+html body [class*="hub-" i][class*="btn" i] {
+    background: linear-gradient(180deg, #3b0d75 0%, #1a0638 100%) !important;
+    border: 1px solid rgba(147, 51, 234, 0.6) !important;
+    border-radius: 4px !important;
+    color: #f3e8ff !important;
+    box-shadow: inset 0 1px 0 rgba(233, 213, 255, 0.25), 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+    text-shadow: 0 1px 2px #000 !important;
+    transition: all 0.15s ease !important;
+}
+
+html body [class*="lab-" i] button:hover,
+html body [class*="lab-" i][class*="btn" i]:hover,
+html body [class*="lab-" i][class*="button" i]:hover,
+html body [class*="lab-" i][class*="tab" i].active,
+html body [class*="hub-" i] button:hover {
+    background: linear-gradient(180deg, #6d28d9 0%, #3b0764 100%) !important;
+    border-color: #d8b4fe !important;
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.5), inset 0 1px 0 #ffffff !important;
+    color: #ffffff !important;
+}
+
+/* Inputy, selecty i pola tekstowe w HUB-ie */
+html body [class*="lab-" i] input:not([type="checkbox"]):not([type="radio"]),
+html body [class*="lab-" i] select,
+html body [class*="lab-" i] textarea,
+html body [class*="hub-" i] input:not([type="checkbox"]):not([type="radio"]),
+html body [class*="hub-" i] select {
+    background-color: #080212 !important;
+    border: 1px solid rgba(139, 92, 246, 0.45) !important;
+    border-radius: 4px !important;
+    color: #f3e8ff !important;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Checkboxy i przełączniki (toggle/switch) w dodatkach */
+html body [class*="lab-" i] input[type="checkbox"],
+html body [class*="hub-" i] input[type="checkbox"] {
+    accent-color: #9333ea !important;
+}
+`;
+
+    // Skaner inline'owych stylów wstrzykiwanych przez zewnętrzne dodatki (np. core.js)
+    const skinCustomAddonNodes = (root = document.body) => {
+        if (localStorage.getItem(STORAGE_KEY) === '0' || !root) return;
+        const nodes = root.querySelectorAll(
+            '[id*="lab" i], [class*="lab" i], [id*="griin" i], [class*="griin" i], [class*="hub" i]'
+        );
+        for (let i = 0; i < nodes.length; i++) {
+            const el = nodes[i];
+            if (el.dataset.voidLabSkinned || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
+            const cs = getComputedStyle(el);
+            const bg = cs.backgroundColor || '';
+            const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+            if (m) {
+                const r = +m[1], g = +m[2], b = +m[3];
+                // Jeśli dodatek ma własne szare, czarne, zielonkawe lub niebieskawe tło (gdzie R <= G lub R == G == B)
+                if ((r + g + b > 15) && (r <= g + 10) && (b < 140)) {
+                    el.style.setProperty('background-color', 'rgba(14, 4, 30, 0.9)', 'important');
+                    el.style.setProperty(
+                        'background-image',
+                        'linear-gradient(180deg, rgba(38, 10, 76, 0.55) 0%, rgba(10, 3, 22, 0.92) 100%)',
+                        'important'
+                    );
+                    if (cs.borderTopWidth !== '0px') {
+                        el.style.setProperty('border-color', 'rgba(139, 92, 246, 0.38)', 'important');
+                    }
+                    el.dataset.voidLabSkinned = '1';
+                }
+            }
+        }
+    };
+
+    const syncLabPatch = () => {
+        if (localStorage.getItem(STORAGE_KEY) !== '0') {
+            if (document.body && labStyle.parentNode !== document.body) {
+                document.body.appendChild(labStyle);
+            }
+            skinCustomAddonNodes();
+        } else {
+            labStyle.remove();
+        }
+    };
+
+    syncLabPatch();
+
+    const obs = new MutationObserver((mutations) => {
+        if (localStorage.getItem(STORAGE_KEY) === '0') return;
+        if (document.body && document.body.lastElementChild !== labStyle) {
+            document.body.appendChild(labStyle);
+        }
+        for (const m of mutations) {
+            if (m.addedNodes.length) {
+                skinCustomAddonNodes();
+                break;
+            }
+        }
+    });
+
+    obs.observe(document.body || document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    window.addEventListener('void-atelier-toggle', syncLabPatch);
+})();
