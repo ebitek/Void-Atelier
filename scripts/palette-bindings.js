@@ -480,7 +480,7 @@ html body .battle-skill-menu {
 })();
 
 // =========================================================================
-// INTEGRACJA: LABKOWY ZESTAW DODATKÓW (HUB / GRIINLAB) -> STYL VOID ATELIER
+// INTEGRACJA v1.8.0: POPUPY GRIINLAB (DOBIJATOR, AUTO F, SPALARKA) + FIX ŁUPÓW
 // =========================================================================
 (function () {
     'use strict';
@@ -491,175 +491,252 @@ html body .battle-skill-menu {
     const labStyle = document.getElementById(LAB_PATCH_ID) || document.createElement('style');
     labStyle.id = LAB_PATCH_ID;
     labStyle.textContent = `
-/* Główne okna, modale i panele Labkowego HUB-a */
-html body [id*="lab" i]:not(script):not(style),
-html body [class*="lab-" i],
-html body [class*="lab_" i],
-html body [class*="griin" i],
-html body [id*="griin" i],
-html body [class*="hub-" i] {
-    border-color: rgba(139, 92, 246, 0.38) !important;
+/* 1. WYŁĄCZENIE PRZYCISKÓW W OKNIE ŁUPÓW Z GLOBALNEGO FIOLETOWEGO STYLU */
+html body .loot-window .button:not(.confirm-but),
+html body .loot-window .one-item-on-loot .button,
+html body .loot-window .loot-item .button,
+html body .loot-window .buttons-wrapper > div,
+html body .loot-window [class*="want"],
+html body .loot-window [class*="yes"],
+html body .loot-window [class*="no"] {
+    background-image: none !important;
 }
 
-/* Kontenery okienek i paneli HUB-a */
-html body div[class*="lab-" i][class*="window" i],
-html body div[class*="lab-" i][class*="panel" i],
-html body div[class*="lab-" i][class*="modal" i],
-html body div[class*="lab-" i][class*="box" i],
-html body div[class*="lab-" i][class*="container" i],
-html body div[id*="lab" i][class*="window" i],
-html body div[id*="lab" i][class*="panel" i],
-html body div[class*="hub-window" i],
-html body div[class*="hub-panel" i] {
-    background-color: rgba(11, 3, 24, 0.94) !important;
-    background-image: linear-gradient(180deg, rgba(42, 12, 84, 0.5) 0%, rgba(9, 2, 20, 0.96) 100%) !important;
-    border: 1px solid rgba(147, 51, 234, 0.55) !important;
+/* Stan wygaszony (NIEZAZNACZONY przycisk w łupach) */
+html body .void-loot-btn-dimmed {
+    background: #080210 !important;
+    background-image: none !important;
+    border: 1px solid rgba(109, 40, 217, 0.22) !important;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.95) !important;
+    opacity: 0.22 !important;
+    filter: grayscale(100%) brightness(0.55) !important;
+    transform: scale(0.9) !important;
+    transition: all 0.12s ease !important;
+}
+
+/* Stan AKTYWNY TAK (✓) - wyraźny szmaragdowy */
+html body .void-loot-btn-yes-active {
+    background: linear-gradient(180deg, #059669 0%, #065f46 60%, #022c22 100%) !important;
+    background-image: linear-gradient(180deg, #059669 0%, #065f46 60%, #022c22 100%) !important;
+    border: 2px solid #34d399 !important;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.06) !important;
+    z-index: 3 !important;
+    transition: all 0.12s ease !important;
+}
+
+/* Stan AKTYWNY NIE (✕) - wyraźny karmazynowy/bordowy */
+html body .void-loot-btn-no-active {
+    background: linear-gradient(180deg, #be123c 0%, #881337 60%, #4c0519 100%) !important;
+    background-image: linear-gradient(180deg, #be123c 0%, #881337 60%, #4c0519 100%) !important;
+    border: 2px solid #fb7185 !important;
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.06) !important;
+    z-index: 3 !important;
+    transition: all 0.12s ease !important;
+}
+
+/* 2. STONOWANY MROCZNY FIOLET DLA POPUPÓW DODATKÓW (DOBIJATOR, AUTO F, SPALARKA, TARCZA) */
+html body .void-addon-popup {
+    background-color: rgba(11, 4, 24, 0.94) !important;
+    background-image: linear-gradient(180deg, rgba(28, 9, 58, 0.65) 0%, rgba(9, 3, 20, 0.96) 100%) !important;
+    border: 1px solid rgba(124, 58, 237, 0.38) !important;
+    border-left: 3px solid #7c3aed !important;
     border-radius: 6px !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(88, 28, 135, 0.35) !important;
-    color: #f3e8ff !important;
-}
-
-/* Nagłówki okienek HUB-a */
-html body [class*="lab-" i][class*="header" i],
-html body [class*="lab-" i][class*="title" i],
-html body [class*="lab-" i][class*="top" i],
-html body [class*="hub-" i][class*="header" i] {
-    background: linear-gradient(180deg, #4c1d95 0%, #24074d 60%, #120426 100%) !important;
-    border-bottom: 1px solid rgba(168, 85, 247, 0.5) !important;
-    color: #f3e8ff !important;
-    text-shadow: 0 1px 2px #000 !important;
-}
-
-/* Wiersze dodatków, karty i sekcje wewnątrz HUB-a */
-html body [class*="lab-" i][class*="item" i],
-html body [class*="lab-" i][class*="row" i],
-html body [class*="lab-" i][class*="card" i],
-html body [class*="lab-" i][class*="addon" i],
-html body [class*="hub-" i][class*="item" i],
-html body [class*="hub-" i][class*="card" i] {
-    background-color: rgba(20, 6, 42, 0.65) !important;
-    background-image: linear-gradient(90deg, rgba(59, 18, 117, 0.25) 0%, rgba(14, 4, 30, 0.65) 100%) !important;
-    border: 1px solid rgba(139, 92, 246, 0.28) !important;
-    border-radius: 4px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(233, 213, 255, 0.08) !important;
     color: #e9d5ff !important;
 }
 
-html body [class*="lab-" i][class*="item" i]:hover,
-html body [class*="lab-" i][class*="row" i]:hover,
-html body [class*="lab-" i][class*="card" i]:hover,
-html body [class*="hub-" i][class*="item" i]:hover {
-    background-color: rgba(68, 20, 130, 0.55) !important;
-    border-color: rgba(196, 181, 253, 0.55) !important;
-}
-
-/* Przyciski i zakładki wewnątrz Labkowego HUB-a */
-html body [class*="lab-" i] button,
-html body [class*="lab-" i][class*="btn" i],
-html body [class*="lab-" i][class*="button" i],
-html body [class*="lab-" i][class*="tab" i],
-html body [class*="hub-" i] button,
-html body [class*="hub-" i][class*="btn" i] {
-    background: linear-gradient(180deg, #3b0d75 0%, #1a0638 100%) !important;
-    border: 1px solid rgba(147, 51, 234, 0.6) !important;
+/* Przyciski, przełączniki (PvE / PvP / Ulepsz z EQ / zębatka / trójkąt) wewnątrz popupów dodatków */
+html body .void-addon-popup button,
+html body .void-addon-popup .void-addon-btn {
+    background-color: rgba(20, 7, 42, 0.88) !important;
+    background-image: linear-gradient(180deg, rgba(46, 14, 92, 0.55) 0%, rgba(15, 5, 32, 0.9) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.35) !important;
     border-radius: 4px !important;
-    color: #f3e8ff !important;
-    box-shadow: inset 0 1px 0 rgba(233, 213, 255, 0.25), 0 2px 4px rgba(0, 0, 0, 0.6) !important;
-    text-shadow: 0 1px 2px #000 !important;
-    transition: all 0.15s ease !important;
+    color: #d8b4fe !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
 }
 
-html body [class*="lab-" i] button:hover,
-html body [class*="lab-" i][class*="btn" i]:hover,
-html body [class*="lab-" i][class*="button" i]:hover,
-html body [class*="lab-" i][class*="tab" i].active,
-html body [class*="hub-" i] button:hover {
-    background: linear-gradient(180deg, #6d28d9 0%, #3b0764 100%) !important;
-    border-color: #d8b4fe !important;
-    box-shadow: 0 0 8px rgba(168, 85, 247, 0.5), inset 0 1px 0 #ffffff !important;
+html body .void-addon-popup button:hover,
+html body .void-addon-popup .void-addon-btn:hover {
+    background-color: rgba(59, 18, 117, 0.75) !important;
+    border-color: rgba(196, 181, 253, 0.6) !important;
     color: #ffffff !important;
 }
 
-/* Inputy, selecty i pola tekstowe w HUB-ie */
-html body [class*="lab-" i] input:not([type="checkbox"]):not([type="radio"]),
-html body [class*="lab-" i] select,
-html body [class*="lab-" i] textarea,
-html body [class*="hub-" i] input:not([type="checkbox"]):not([type="radio"]),
-html body [class*="hub-" i] select {
-    background-color: #080212 !important;
-    border: 1px solid rgba(139, 92, 246, 0.45) !important;
-    border-radius: 4px !important;
+/* Aktywny przycisk w popupie dodatku (np. zaznaczone PvP, Ulepsz z EQ) - stonowany fiolet zamiast czerwieni */
+html body .void-addon-popup .void-addon-btn-active {
+    background-color: rgba(59, 13, 117, 0.85) !important;
+    background-image: linear-gradient(180deg, rgba(88, 28, 135, 0.75) 0%, rgba(46, 16, 101, 0.9) 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.7) !important;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(243, 232, 255, 0.2) !important;
     color: #f3e8ff !important;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85) !important;
-}
-
-/* Checkboxy i przełączniki (toggle/switch) w dodatkach */
-html body [class*="lab-" i] input[type="checkbox"],
-html body [class*="hub-" i] input[type="checkbox"] {
-    accent-color: #9333ea !important;
 }
 `;
 
-    // Skaner inline'owych stylów wstrzykiwanych przez zewnętrzne dodatki (np. core.js)
-    const skinCustomAddonNodes = (root = document.body) => {
-        if (localStorage.getItem(STORAGE_KEY) === '0' || !root) return;
-        const nodes = root.querySelectorAll(
-            '[id*="lab" i], [class*="lab" i], [id*="griin" i], [class*="griin" i], [class*="hub" i]'
-        );
-        for (let i = 0; i < nodes.length; i++) {
-            const el = nodes[i];
-            if (el.dataset.voidLabSkinned || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') continue;
-            const cs = getComputedStyle(el);
-            const bg = cs.backgroundColor || '';
-            const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
-            if (m) {
-                const r = +m[1], g = +m[2], b = +m[3];
-                // Jeśli dodatek ma własne szare, czarne, zielonkawe lub niebieskawe tło (gdzie R <= G lub R == G == B)
-                if ((r + g + b > 15) && (r <= g + 10) && (b < 140)) {
-                    el.style.setProperty('background-color', 'rgba(14, 4, 30, 0.9)', 'important');
-                    el.style.setProperty(
-                        'background-image',
-                        'linear-gradient(180deg, rgba(38, 10, 76, 0.55) 0%, rgba(10, 3, 22, 0.92) 100%)',
-                        'important'
-                    );
-                    if (cs.borderTopWidth !== '0px') {
-                        el.style.setProperty('border-color', 'rgba(139, 92, 246, 0.38)', 'important');
-                    }
-                    el.dataset.voidLabSkinned = '1';
+    // =========================================================================
+    // FUNKCJA 1: Niezawodna naprawa przycisków TAK / NIE w oknie Łupów
+    // =========================================================================
+    const updateLootButtons = () => {
+        if (localStorage.getItem(STORAGE_KEY) === '0') return;
+        const lootWin = document.querySelector('.loot-window, .border-window.loot-window, [class*="loot-window"]');
+        if (!lootWin) return;
+
+        // Szukamy wszystkich kart przedmiotów w oknie łupów
+        const items = lootWin.querySelectorAll('.one-item-on-loot, .loot-item, .item-wrapper');
+        items.forEach((itemBox) => {
+            const boxText = (itemBox.innerText || '').toUpperCase();
+            // Pobieramy parę przycisków (✓ oraz ✕) w danym przedmiocie
+            let btns = Array.from(itemBox.querySelectorAll('.button, .but, .choice-btn'));
+            if (btns.length < 2) {
+                const btnWrap = itemBox.querySelector('.buttons-wrapper, .choice-wrapper, .btns');
+                if (btnWrap && btnWrap.children.length >= 2) {
+                    btns = Array.from(btnWrap.children);
                 }
+            }
+            if (btns.length < 2) return;
+
+            const yesBtn = btns[0];
+            const noBtn = btns[btns.length - 1];
+
+            // Rozpoznanie stanu na podstawie klas lub napisu "NIE CHCĘ" / "CHCĘ" / "MUSZĘ"
+            const noHasActiveClass =
+                noBtn.classList.contains('active') ||
+                noBtn.classList.contains('selected') ||
+                noBtn.classList.contains('checked');
+            const yesHasActiveClass =
+                yesBtn.classList.contains('active') ||
+                yesBtn.classList.contains('selected') ||
+                yesBtn.classList.contains('checked');
+
+            let isNoSelected = false;
+            if (yesHasActiveClass || noHasActiveClass) {
+                isNoSelected = noHasActiveClass && !yesHasActiveClass;
+            } else if (boxText.includes('NIE CHC')) {
+                isNoSelected = true;
+            } else if (boxText.includes('CHC') || boxText.includes('MUSZ')) {
+                isNoSelected = false;
+            } else {
+                isNoSelected = itemBox.dataset.voidLastLootChoice !== 'yes';
+            }
+
+            yesBtn.classList.toggle('void-loot-btn-yes-active', !isNoSelected);
+            yesBtn.classList.toggle('void-loot-btn-dimmed', isNoSelected);
+
+            noBtn.classList.toggle('void-loot-btn-no-active', isNoSelected);
+            noBtn.classList.toggle('void-loot-btn-dimmed', !isNoSelected);
+
+            if (!yesBtn.dataset.voidLootBound) {
+                yesBtn.dataset.voidLootBound = '1';
+                yesBtn.addEventListener('click', () => {
+                    itemBox.dataset.voidLastLootChoice = 'yes';
+                    setTimeout(updateLootButtons, 15);
+                });
+            }
+            if (!noBtn.dataset.voidLootBound) {
+                noBtn.dataset.voidLootBound = '1';
+                noBtn.addEventListener('click', () => {
+                    itemBox.dataset.voidLastLootChoice = 'no';
+                    setTimeout(updateLootButtons, 15);
+                });
+            }
+        });
+    };
+
+    // =========================================================================
+    // FUNKCJA 2: Wykrywanie i stylowanie pływających popupów Griinlab (Dobijator, Auto F, Spalarka)
+    // =========================================================================
+    const isDarkGrayBg = (col) => {
+        if (!col) return false;
+        const m = col.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        if (!m) return false;
+        const r = +m[1], g = +m[2], b = +m[3];
+        // Ciemnoszare/czarne tła dodatków (np. rgb(20, 20, 20) - rgb(45, 45, 45))
+        return r >= 10 && r <= 55 && Math.abs(r - g) <= 12 && Math.abs(g - b) <= 12;
+    };
+
+    const isRedOrOrangeAccent = (col) => {
+        if (!col) return false;
+        const m = col.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        if (!m) return false;
+        const r = +m[1], g = +m[2], b = +m[3];
+        // Czerwone/pomarańczowe ramki i tła z dodatków (np. PvP, Ulepsz z EQ, lewy pasek)
+        return r > 110 && r > g * 1.4 && r > b * 1.8;
+    };
+
+    const skinFloatingAddonPopups = () => {
+        if (localStorage.getItem(STORAGE_KEY) === '0' || !document.body) return;
+
+        const allDivs = document.body.querySelectorAll('div');
+        for (let i = 0; i < allDivs.length; i++) {
+            const el = allDivs[i];
+            if (
+                el.closest('.layer') ||
+                el.closest('.border-window') ||
+                el.closest('.new-chat-window') ||
+                el.closest('.tip-wrapper')
+            ) {
+                continue;
+            }
+
+            const cs = getComputedStyle(el);
+            const pos = cs.position;
+
+            // Pływające okienka dodatków mają position: fixed lub absolute oraz ciemnoszare tło
+            if ((pos === 'fixed' || pos === 'absolute') && isDarkGrayBg(cs.backgroundColor)) {
+                el.classList.add('void-addon-popup');
+
+                // Wewnętrzne elementy popupu (przyciski PvE, PvP, Ulepsz z EQ, zębatka)
+                const innerEls = el.querySelectorAll('div, button, span');
+                innerEls.forEach((child) => {
+                    const cStyle = getComputedStyle(child);
+                    if (isRedOrOrangeAccent(cStyle.borderTopColor) || isRedOrOrangeAccent(cStyle.backgroundColor)) {
+                        child.classList.add('void-addon-btn', 'void-addon-btn-active');
+                    } else if (
+                        cStyle.cursor === 'pointer' &&
+                        (cStyle.borderTopWidth !== '0px' || isDarkGrayBg(cStyle.backgroundColor))
+                    ) {
+                        child.classList.add('void-addon-btn');
+                    }
+                });
             }
         }
     };
 
-    const syncLabPatch = () => {
+    const runAllPatches = () => {
         if (localStorage.getItem(STORAGE_KEY) !== '0') {
             if (document.body && labStyle.parentNode !== document.body) {
                 document.body.appendChild(labStyle);
             }
-            skinCustomAddonNodes();
+            updateLootButtons();
+            skinFloatingAddonPopups();
         } else {
             labStyle.remove();
         }
     };
 
-    syncLabPatch();
+    runAllPatches();
 
-    const obs = new MutationObserver((mutations) => {
+    const obs = new MutationObserver(() => {
         if (localStorage.getItem(STORAGE_KEY) === '0') return;
         if (document.body && document.body.lastElementChild !== labStyle) {
             document.body.appendChild(labStyle);
         }
-        for (const m of mutations) {
-            if (m.addedNodes.length) {
-                skinCustomAddonNodes();
-                break;
-            }
-        }
+        updateLootButtons();
+        skinFloatingAddonPopups();
     });
 
     obs.observe(document.body || document.documentElement, {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class', 'style']
     });
 
-    window.addEventListener('void-atelier-toggle', syncLabPatch);
+    window.addEventListener('void-atelier-toggle', runAllPatches);
 })();
