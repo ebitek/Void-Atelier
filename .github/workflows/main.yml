@@ -1,0 +1,29 @@
+name: Build Void Assets
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Wygeneruj 197 fioletowych grafik
+        run: |
+          pip install pillow requests numpy
+          python tools/build_void_assets.py
+      - name: Zapisz grafiki w repozytorium
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/
+          git commit -m "Wygenerowano 197 grafik Void Atelier" || exit 0
+          git push
