@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Void Atelier (Dark Violet NI)
 // @namespace    VoidAtelier/MotywyNI
-// @version      1.0.0
-// @author       TwójNick
-// @description  Mroczno-fioletowy motyw interfejsu Margonem (Obsidian & Amethyst). Alt+U włącza/wyłącza motyw.
+// @version      1.6.0
+// @author       ebitek
+// @description  Mroczno-fioletowy motyw interfejsu Margonem. Alt+U: wł/wył.
 // @match        https://*.margonem.pl/*
 // @match        https://*.margonem.com/*
 // @exclude      https://margonem.pl/*
@@ -20,17 +20,14 @@
 
     if (/^(www|forum|pomoc)\./i.test(location.hostname)) return;
 
-    // =========================================================================
-    // KONFIGURACJA TWOJEGO REPOZYTORIUM GITHUB:
-    // Zamień "TWOJ_NICK_GITHUB" oraz "NAZWA_REPO" na swoje dane po wrzuceniu plików!
-    // Możesz też użyć konkretnego commita zamiast "@main", np. "@a1b2c3d..."
-    // =========================================================================
-    const GITHUB_USER = 'TWOJ_NICK_GITHUB';
+    const GITHUB_USER = 'ebitek';
     const GITHUB_REPO = 'Void-Atelier';
     const GIT_BRANCH  = 'main';
+    const VERSION     = '1.6.0';
 
     const BASE_URL = `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@${GIT_BRANCH}/`;
     const LINK_ID = 'motywy-ni-void-atelier-css';
+    const PATCH_ID = 'motywy-ni-void-atelier-live-patch';
     const STORAGE_KEY = 'void_atelier_enabled';
 
     let isEnabled = localStorage.getItem(STORAGE_KEY) !== '0';
@@ -38,7 +35,7 @@
     const linkEl = document.createElement('link');
     linkEl.id = LINK_ID;
     linkEl.rel = 'stylesheet';
-    linkEl.href = `${BASE_URL}css/void-atelier.css`;
+    linkEl.href = `${BASE_URL}css/void-atelier.css?v=${VERSION}`;
 
     const syncTheme = () => {
         if (isEnabled) {
@@ -47,12 +44,14 @@
             }
         } else {
             linkEl.remove();
+            const patchEl = document.getElementById(PATCH_ID);
+            if (patchEl) patchEl.remove();
         }
+        window.dispatchEvent(new CustomEvent('void-atelier-toggle'));
     };
 
     syncTheme();
 
-    // Skrót klawiszowy Alt + U (włącz / wyłącz)
     window.addEventListener('keydown', (e) => {
         if (e.altKey && !e.ctrlKey && !e.shiftKey && e.code === 'KeyU') {
             e.preventDefault();
@@ -65,31 +64,8 @@
         }
     });
 
-    // Załadowanie skryptu bindowania palety (odznaki Elit/Herosów/Tytanów i Timery)
     const scriptEl = document.createElement('script');
-    scriptEl.src = `${BASE_URL}scripts/palette-bindings.js`;
+    scriptEl.src = `${BASE_URL}scripts/palette-bindings.js?v=${VERSION}`;
     scriptEl.onload = () => scriptEl.remove();
     document.head.appendChild(scriptEl);
-
-    // Podmiana znacznika ruchu (X) na mapie
-    try {
-        const res = await fetch(`${BASE_URL}assets/move-marker.png`);
-        if (res.ok) {
-            const blob = await res.blob();
-            const dataUrl = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-            for (let i = 0; i < 150; i++) {
-                const cross = window.Engine?.imgLoader?.checkExist?.('/img/cross.gif', false);
-                if (cross && typeof cross.src === 'string') {
-                    cross.src = dataUrl;
-                    break;
-                }
-                await new Promise(r => setTimeout(r, 200));
-            }
-        }
-    } catch (e) {}
 })();
