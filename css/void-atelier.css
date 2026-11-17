@@ -91,3 +91,387 @@
     font-weight: 700 !important;
     text-shadow: 0 1px 2px #000, 0 0 4px #7c3aed !important;
 }
+/* =========================================================================
+   VOID ATELIER v1.6.0 - ROZSZERZENIE (KOLUMNY, CZAT, WIDŻETY, ŁUPY, WALKA)
+   ========================================================================= */
+:root {
+    --void-side-bg: url("../assets/side-column-bg.png");
+    --wa-control-top: #240a47 !important;
+    --wa-control-bottom: #0d031c !important;
+    --wa-panel-bg: #0b0318 !important;
+    --wa-panel-alt: #14052b !important;
+    --wa-border: rgba(139, 92, 246, 0.42) !important;
+    --wa-border-soft: rgba(109, 40, 217, 0.28) !important;
+}
+
+/* 1. PRAWA I LEWA KOLUMNA Z NOWĄ GRAFIKĄ PNG */
+html body .layer.interface-layer .main-column.right-column,
+html body .layer.interface-layer .main-column.left-column {
+    background-color: #080312 !important;
+    background-image:
+        linear-gradient(180deg, rgba(8, 3, 18, 0.35) 0%, rgba(8, 3, 18, 0.15) 50%, rgba(8, 3, 18, 0.45) 100%),
+        var(--void-side-bg),
+        var(--wa42) !important;
+    background-size: 100% 100%, 100% 100%, cover !important;
+    background-position: center top, center center, center !important;
+    background-repeat: no-repeat !important;
+    box-shadow:
+        inset 1px 0 0 rgba(168, 85, 247, 0.55),
+        inset -1px 0 0 rgba(168, 85, 247, 0.55),
+        inset 0 0 22px rgba(0, 0, 0, 0.75) !important;
+}
+
+html body .layer.interface-layer .main-column.right-column .border,
+html body .layer.interface-layer .main-column.left-column .border {
+    background-image: linear-gradient(90deg, #05020a 0%, #d8b4fe 18%, #7e22ce 45%, #a855f7 60%, #3b0764 82%, #05020a 100%) !important;
+    width: 6px !important;
+    background-size: 6px 100% !important;
+}
+
+/* 2. IKONY WIDŻETÓW (GÓRNY/DOLNY PASEK) ORAZ PRZYCISKI OGÓLNE */
+html body .widget-button,
+html body .widget-button.green,
+html body .widget-button.blue,
+html body .widget-button.purple,
+html body .widget-button.orange,
+html body .widget-button.black,
+html body .widget-button.blink-violet,
+html body .widget-button.transparent,
+html body .button:not(.yes):not(.no):not(.want):not(.not-want):not(.need),
+html body .button.green:not(.yes):not(.no),
+html body .button.blue:not(.yes):not(.no),
+html body .button.purple,
+html body .button.transparent {
+    --wa-control-top: #320b63ed !important;
+    --wa-control-bottom: #100322f5 !important;
+    --wa-control-bevel: inset 0 1px 0 rgba(233, 213, 255, 0.45), inset 0 -1px 0 #05010a, inset 1px 0 0 rgba(147, 51, 234, 0.55), inset -1px 0 0 #2e1065 !important;
+    background-color: #16062e !important;
+    background-image:
+        linear-gradient(135deg, rgba(243, 232, 255, 0.1), transparent 30%, transparent 70%, rgba(5, 1, 12, 0.55)),
+        linear-gradient(180deg, #380d70 0%, #1f0642 52%, #0e0220 100%),
+        var(--wa-panel-image) !important;
+    border-color: #070210 !important;
+    box-shadow:
+        inset 0 1px 0 rgba(233, 213, 255, 0.45),
+        inset 0 -1px 0 #05010a,
+        inset 1px 0 0 rgba(147, 51, 234, 0.5),
+        inset -1px 0 0 #2e1065,
+        0 2px 5px rgba(0, 0, 0, 0.7) !important;
+    color: #ede9fe !important;
+}
+
+html body .widget-button.window-is-open,
+html body .widget-button.red,
+html body .widget-button:hover,
+html body .button:not(.yes):not(.no).window-is-open,
+html body .button:not(.yes):not(.no).active,
+html body .button:not(.yes):not(.no):hover {
+    background-image:
+        linear-gradient(180deg, #5b189a 0%, #3b0d75 52%, #190536 100%),
+        var(--wa-panel-image) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(245, 208, 254, 0.7),
+        inset 0 0 6px rgba(168, 85, 247, 0.4),
+        0 0 6px rgba(147, 51, 234, 0.3) !important;
+    color: #ffffff !important;
+}
+
+/* 3. LEWA KOLUMNA (CZAT) I PRAWA KOLUMNA (PLECAK / EQ) */
+html body .new-chat-window {
+    background-color: rgba(8, 3, 18, 0.55) !important;
+    background-image: linear-gradient(180deg, rgba(20, 8, 42, 0.45) 0%, rgba(6, 2, 14, 0.65) 100%) !important;
+    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.28) !important;
+}
+
+html body .chat-channel-card-wrapper {
+    background: linear-gradient(180deg, rgba(38, 12, 82, 0.85) 0%, rgba(13, 4, 28, 0.95) 100%) !important;
+    border-top: 1px solid rgba(147, 51, 234, 0.5) !important;
+    border-bottom: 1px solid rgba(147, 51, 234, 0.5) !important;
+}
+
+html body .chat-channel-card-wrapper .chat-channel-card.active,
+html body .chat-channel-card-wrapper .chat-channel-card:hover {
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(46, 16, 101, 0.75) 100%) !important;
+    box-shadow: inset 0 0 0 1px rgba(196, 181, 253, 0.55) !important;
+}
+
+html body .chat-input-wrapper {
+    background: linear-gradient(180deg, rgba(22, 8, 46, 0.9) 0%, rgba(8, 3, 18, 0.96) 100%) !important;
+    border-top: 1px solid rgba(139, 92, 246, 0.45) !important;
+}
+
+html body .interface-element-bag-eq-icon-background {
+    background: none !important;
+    background-image: none !important;
+    display: none !important;
+}
+
+html body .interface-element-equipment .eq-slot,
+html body .interface-element-equipment-with-additional-bag .eq-slot {
+    background-color: rgba(11, 4, 24, 0.78) !important;
+    background-image: radial-gradient(circle at 50% 50%, rgba(109, 40, 217, 0.18), rgba(7, 2, 15, 0.9)) !important;
+    border: 1px solid rgba(124, 58, 237, 0.55) !important;
+    box-shadow: inset 0 1px 0 rgba(233, 213, 255, 0.18), inset 0 0 8px #000 !important;
+    border-radius: 3px !important;
+}
+
+html body .game-window-positioner .inventory_wrapper .inventory-grid-bg {
+    background-color: rgba(8, 3, 18, 0.72) !important;
+    border: 1px solid rgba(139, 92, 246, 0.5) !important;
+    box-shadow: inset 0 0 0 1px #2e1065, inset 0 0 16px rgba(0, 0, 0, 0.85) !important;
+    border-radius: 4px 0 4px 4px !important;
+}
+
+/* 4. ZAKŁADKI OKIEN, WYSZUKIWARKI I FILTR ŁUPÓW */
+html body .border-window .header-card,
+html body .border-window .cards-header .card,
+html body .border-window .cards-header > div,
+html body .cards-header-wrapper .cards-header > div,
+html body .cards-header > div,
+html body .section-switcher > div,
+html body .tabs-nav > div,
+html body .menu-column .menu-item,
+html body .left-column-list .item,
+html body .clan-window .left-column .button,
+html body .clan-window .menu .item,
+html body .crafting-window .left-column .item,
+html body .crafting-window .menu-item,
+html body [class*="cards-header"] > div,
+html body [class*="tab-header"] > div {
+    background-color: #110422 !important;
+    background-image: linear-gradient(180deg, #21083d 0%, #120424 55%, #090213 100%) !important;
+    border-color: rgba(124, 58, 237, 0.45) !important;
+    box-shadow: inset 0 1px 0 rgba(233, 213, 255, 0.12) !important;
+    color: #c4b5fd !important;
+}
+
+html body .border-window .header-card.active,
+html body .border-window .header-card:hover,
+html body .border-window .cards-header .card.active,
+html body .border-window .cards-header .card:hover,
+html body .border-window .cards-header > div.active,
+html body .border-window .cards-header > div:hover,
+html body .cards-header-wrapper .cards-header > div.active,
+html body .cards-header-wrapper .cards-header > div:hover,
+html body .cards-header > div.active,
+html body .cards-header > div:hover,
+html body .clan-window .left-column .button.active,
+html body .clan-window .left-column .button:hover,
+html body [class*="cards-header"] > div.active,
+html body [class*="cards-header"] > div:hover {
+    background-color: #3b0764 !important;
+    background-image: linear-gradient(180deg, #5b189a 0%, #3b0d75 55%, #1d063d 100%) !important;
+    border-color: rgba(196, 181, 253, 0.65) !important;
+    box-shadow: inset 0 1px 0 rgba(243, 232, 255, 0.5), inset 0 0 8px rgba(168, 85, 247, 0.25) !important;
+    color: #ffffff !important;
+}
+
+html body .loot-filter-window,
+html body .settings-window,
+html body .addons-panel,
+html body .border-window .scroll-pane .one-option,
+html body .border-window .option-row,
+html body .border-window .filter-item,
+html body .border-window .addon-row,
+html body .border-window .section-header,
+html body .border-window .group-header {
+    background-color: rgba(16, 5, 34, 0.65) !important;
+    border-color: rgba(124, 58, 237, 0.3) !important;
+    color: #e9d5ff !important;
+}
+
+html body .border-window .search-wrapper,
+html body .border-window .search-panel,
+html body .border-window .search-box,
+html body .border-window input[type="text"],
+html body .border-window input[type="number"],
+html body .border-window .default-input,
+html body .border-window .menu-wrapper,
+html body .border-window select {
+    background-color: #090214 !important;
+    background-image: linear-gradient(180deg, #140529 0%, #080212 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.38) !important;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85) !important;
+    color: #ede9fe !important;
+}
+
+html body .progress-bar,
+html body .bar-wrapper,
+html body [class*="progress-bar"] {
+    background-color: #090214 !important;
+    background-image: linear-gradient(180deg, #15052b 0%, #080212 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+}
+
+/* 5. LISTA GRACZY, MINUTNIK, GRUPA */
+html body .who-is-here,
+html body .min-timer,
+html body .respawn-timer,
+html body .timers-window,
+html body .party,
+html body .party-window {
+    border: 1px solid rgba(139, 92, 246, 0.38) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75) !important;
+}
+
+html body .who-is-here .background,
+html body .min-timer .background,
+html body .party .background {
+    background-color: rgba(10, 3, 22, 0.65) !important;
+    background-image: linear-gradient(180deg, rgba(32, 10, 68, 0.35) 0%, rgba(8, 2, 18, 0.65) 100%) !important;
+}
+
+html body .who-is-here .scroll-wrapper,
+html body .who-is-here .scroll-pane,
+html body .min-timer .scroll-wrapper,
+html body .min-timer .scroll-pane {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+html body .who-is-here .one-other,
+html body .who-is-here .other-row {
+    background-color: rgba(20, 6, 42, 0.5) !important;
+    background-image: linear-gradient(90deg, rgba(59, 18, 117, 0.28) 0%, rgba(14, 4, 30, 0.5) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.26) !important;
+    box-shadow: none !important;
+    border-radius: 3px !important;
+    margin-bottom: 2px !important;
+}
+html body .who-is-here .one-other *,
+html body .who-is-here .other-row * {
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+html body .who-is-here .one-other:hover {
+    background-color: rgba(68, 20, 130, 0.55) !important;
+    border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+html body .who-is-here .bottom-part,
+html body .who-is-here .search-wrapper,
+html body .who-is-here .filter-wrapper {
+    background-color: #0b0318 !important;
+    border-top: 1px solid rgba(139, 92, 246, 0.22) !important;
+    box-shadow: none !important;
+}
+
+html body .who-is-here input,
+html body .who-is-here .default-input {
+    background-color: rgba(6, 2, 14, 0.85) !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+    border-radius: 3px !important;
+    color: #e9d5ff !important;
+}
+html body .who-is-here input:focus {
+    border-color: rgba(196, 181, 253, 0.6) !important;
+}
+
+html body .min-timer .one-timer,
+html body .min-timer .timer-row,
+html body .min-timer .add-timer,
+html body .min-timer .scroll-pane > div {
+    background-color: rgba(20, 6, 42, 0.55) !important;
+    background-image: linear-gradient(180deg, rgba(48, 14, 96, 0.38) 0%, rgba(12, 4, 26, 0.68) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.28) !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    color: #e9d5ff !important;
+}
+
+html body .min-timer .add-timer *,
+html body .min-timer .one-timer *,
+html body [class*="timer"] [class*="add"] * {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+html body .min-timer .add-timer:hover,
+html body .min-timer .one-timer:hover {
+    background-color: rgba(68, 20, 130, 0.55) !important;
+    border-color: rgba(196, 181, 253, 0.5) !important;
+}
+
+html body .min-timer .one-timer .name,
+html body .min-timer .one-timer span:first-child {
+    color: #d8b4fe !important;
+}
+
+/* 6. OKNO ŁUPÓW (LOOT WINDOW) */
+html body .loot-window .one-item-on-loot {
+    background: linear-gradient(180deg, rgba(26, 8, 52, 0.75) 0%, rgba(9, 3, 20, 0.92) 100%) !important;
+    border: 1px solid rgba(139, 92, 246, 0.45) !important;
+    border-radius: 5px !important;
+}
+
+html body .loot-window .one-item-on-loot .button,
+html body .loot-window .buttons-wrapper > div {
+    background: rgba(14, 5, 28, 0.75) !important;
+    border: 1px solid rgba(124, 58, 237, 0.3) !important;
+    opacity: 0.4 !important;
+    filter: grayscale(50%) brightness(0.7) !important;
+    transform: scale(0.92) !important;
+    transition: all 0.14s ease !important;
+}
+
+html body .loot-window .one-item-on-loot .button:first-of-type.active,
+html body .loot-window .buttons-wrapper > div:first-child.active,
+html body .loot-window .button.yes.active,
+html body .loot-window .button.want.active {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.05) !important;
+    background: radial-gradient(circle at 50% 35%, #10b981 0%, #059669 55%, #064e3b 100%) !important;
+    border: 1px solid #6ee7b7 !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.75), inset 0 1px 0 #ffffff !important;
+}
+
+html body .loot-window .one-item-on-loot .button:last-of-type.active,
+html body .loot-window .buttons-wrapper > div:last-child.active,
+html body .loot-window .button.no.active,
+html body .loot-window .button.not-want.active {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.05) !important;
+    background: radial-gradient(circle at 50% 35%, #f43f5e 0%, #be123c 55%, #4c0519 100%) !important;
+    border: 1px solid #fda4af !important;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.75), inset 0 1px 0 #ffffff !important;
+}
+
+/* 7. TOOLTIPY PRZEDMIOTÓW ORAZ PANEL WALKI */
+html body .tip-wrapper,
+html body .tip-wrapper .content {
+    background-color: #090214 !important;
+    background-image:
+        radial-gradient(circle at 50% 0%, rgba(109, 40, 217, 0.22) 0%, transparent 70%),
+        linear-gradient(180deg, #15052b 0%, #090214 60%, #05010a 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.65) !important;
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 0 1px #2e1065, 0 8px 24px rgba(0, 0, 0, 0.95) !important;
+    color: #f3e8ff !important;
+}
+
+html body .tip-wrapper .border-image,
+html body .tip-wrapper::before,
+html body .tip-wrapper::after {
+    display: none !important;
+}
+
+html body .battle-controller,
+html body .battle-window {
+    background-color: rgba(8, 2, 18, 0.92) !important;
+    border: 1px solid rgba(147, 51, 234, 0.65) !important;
+    box-shadow: inset 0 0 0 1px #2e1065, 0 0 25px rgba(0, 0, 0, 0.9) !important;
+}
+
+html body .popup-menu,
+html body .battle-skill-menu {
+    background-color: rgba(11, 3, 24, 0.96) !important;
+    background-image: linear-gradient(180deg, rgba(48, 12, 86, 0.9) 0%, rgba(11, 3, 24, 0.98) 100%) !important;
+    border: 1px solid rgba(168, 85, 247, 0.65) !important;
+    border-radius: 6px !important;
+}
